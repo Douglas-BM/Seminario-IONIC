@@ -19,6 +19,14 @@ const routes: Routes = [
         redirectTo: "home",
         pathMatch: "full"
       },
+      {
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then( m => m.SettingsPageModule)
+      },
+      {
+        path: 'maps',
+        loadChildren: () => import('../maps/maps.module').then( m => m.MapsPageModule)
+      }
     ]
   }
 ];
