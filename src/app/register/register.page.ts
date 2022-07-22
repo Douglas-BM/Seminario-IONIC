@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
@@ -11,6 +12,7 @@ import { AuthenticateService } from '../services/authenticate.service';
 })
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
+  registerResult: boolean = true;
   validation_messages = {
     nombre: [
       { type: "required", message: "El nombre es obligatorio" }
@@ -37,13 +39,13 @@ export class RegisterPage implements OnInit {
     private authService: AuthenticateService
   ) {
     this.registerForm = this.formBuilder.group({
-      nombre: new FormControl(
+      name: new FormControl(
         "",
         Validators.compose([
           Validators.required
         ])
       ),
-      apellido: new FormControl(
+      last_name: new FormControl(
         "",
         Validators.compose([
           Validators.required
@@ -71,13 +73,23 @@ export class RegisterPage implements OnInit {
   }
 
   register(registerFormValues) {
-    this.authService.registerUser(registerFormValues).then(() => {
-      this.navCtrl.navigateBack("/login");
-    });
+    //this.authService.registerUser(registerFormValues).subscribe(async resp => {
+    //  this.navCtrl.navigateBack("/login");
+    //});
+    this.authService.registerUser(registerFormValues).subscribe( (data: any) => {
+      if (data.id == null){
+        "no se hizo login"
+      }else{
+        this.navCtrl.navigateBack("/login")
+      }
+    }) 
   }
 
   goToLogin() {
-    this.navCtrl.navigateBack("/login")
+    //this.navCtrl.navigateBack("/login")
+    this.navCtrl.navigateBack("/login").then((resp) => {
+      console.log(resp)
+    })
   }
 
 }
