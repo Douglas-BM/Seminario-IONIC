@@ -67,7 +67,7 @@ export class LoginPage implements OnInit {
   //  })
   this.authService.loginUser(credentials).then( res => {
     this.errorMessage = "";
-    console.log("responsse",res)
+    console.log("isUserLoggedIn",res)
   }).catch( err => {
     this.errorMessage = err;
   })

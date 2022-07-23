@@ -13,6 +13,7 @@ export class SearchModalPage implements OnInit {
   text = "Ingrese una palabra";
   songs: any;
   song: any;
+  songg: any;
   currentSong: HTMLAudioElement;
 
   constructor(private modalController: ModalController, private musicService: MusicService) { }
@@ -55,6 +56,9 @@ export class SearchModalPage implements OnInit {
   pause() {
     this.currentSong.pause();
     this.song.playing = false;
+  }
+  async selectSong(songg) {
+    await this.modalController.dismiss(songg)
   }
 
 }
